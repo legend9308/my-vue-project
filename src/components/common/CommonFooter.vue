@@ -23,7 +23,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	/*@import "../../assets/css/reset.css";*/
 	.footer{
 			height: 1rem;
 			background: rgb(33,150,243);
