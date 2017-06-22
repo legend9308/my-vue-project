@@ -9,6 +9,9 @@
             	<p><span v-for="genre in movie.genres">{{genre}}</span>({{movie.year}})(平均{{movie.rating.average}}分)</p>
             </div>
         </div>
+        <div class="loading" v-show="show">
+        	<span><img src="../../assets/img/loading.gif"></span>
+        </div>
     </div>  
 </template>
 
@@ -17,19 +20,38 @@
 <script>
 
 	import Axios from 'axios'
+	import $ from 'jquery'
 
 export default {
   name: 'hello',
   data () {
     return {
-      movieList:[]
+      movieList:[],
+      show: false
     }
   },
   mounted:function(){     //页面渲染之后自动调用函数
-  	Axios.get(API_PROXY+'https://api.douban.com/v2/movie/top250?count=10&start=0')
-  		.then((res)=>{
-  			this.movieList = res.data.subjects;
-  		});
+  	this.loadData();
+  	var _this = this;
+  	$(window).scroll(function(){
+  		var windowHeight = $(this).height();
+  		var scrollTop = $(this).scrollTop();
+  		var height = $(document).height();
+  		if(windowHeight + scrollTop >= height){
+  			_this.show = true;
+  			_this.loadData();
+  		};
+  	});
+  },
+  methods:{
+  	loadData(){
+  		var length = this.movieList.length;
+  		Axios.get(API_PROXY+'https://api.douban.com/v2/movie/top250?count=10&start='+length)
+  			.then((res)=>{
+  				this.movieList = this.movieList.concat(res.data.subjects);
+  				this.show = false;
+  			});
+  	}
   }
 }
 </script>
@@ -59,5 +81,8 @@ export default {
 		width: 4rem;
 		margin-left: 0.6rem;
 		border-bottom: 1px solid #ccc;
+    }
+    .loading{
+    	text-align: center;
     }
 </style>
