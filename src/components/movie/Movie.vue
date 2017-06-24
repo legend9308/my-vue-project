@@ -1,6 +1,6 @@
 <template>
 	<div class="movie">
-		<common-header>movie</common-header>
+		<common-header><button>{{$store.state.btn}}</button></common-header>
 		<movie-nav></movie-nav>
     <!-- <Movie-top250></Movie-top250> -->
     <router-view></router-view>
@@ -28,6 +28,9 @@ export default {
   	MovieNav,
     CommonFooter,
     MovieTop250
+  },
+  mounted(){
+    this.$store.dispatch('changeTitle',['movie','#2196f3','首页']);
   }
 }
 </script>

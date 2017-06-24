@@ -1,6 +1,6 @@
 <template>
-	<div class="header">
-		<button>首页</button>
+	<div class="header" :style="{background:$store.state.bgColor}">
+		<slot><button @click="aa">{{$store.state.btn}}</button></slot>
 		<h2>{{$store.state.title}}</h2>
 	</div>	
 </template>
@@ -14,6 +14,11 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods:{
+  	aa:function(){
+  		history.go(-1);
+  	}
   }
 }
 </script>
@@ -25,7 +30,7 @@ export default {
 	.header{
 		display: flex;
 		height: 1rem;
-		background: rgb(33,150,243);
+		/*background: rgb(33,150,243);*/
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -33,7 +38,7 @@ export default {
 	.header button{
 		width: 1rem;
 		height: 1rem;
-		background: rgb(33,150,243);
+		background: transparent;
 		color: #fff;	
 		border: none;	
 	}
@@ -43,6 +48,9 @@ export default {
 		line-height: 1rem;
 		text-align: center;
 		text-indent: -0.5rem;
+		color: #fff;
+	}
+	.header a{
 		color: #fff;
 	}
 </style>

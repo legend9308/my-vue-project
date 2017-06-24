@@ -9,6 +9,9 @@
             	<p><span v-for="genre in movie.genres">{{genre}}</span>({{movie.year}})(平均{{movie.rating.average}}分)</p>
             </div>
         </div>
+        <div class="loading" v-show="show"> <!-- v-show="show" --> 
+          <span><img src="../../assets/img/loading.gif"></span>
+        </div>
     </div>  
 </template>
 
@@ -17,19 +20,38 @@
 <script>
 
 	import Axios from 'axios'
+  import $ from 'jQuery'
 
 export default {
   name: 'hello',
   data () {
     return {
-      movieList:[]
+      movieList:[],
+      show:false
     }
   },
   mounted:function(){     //页面渲染之后自动调用函数
-  	Axios.get(API_PROXY+'https://api.douban.com/v2/movie/coming_soon?count=10&start=0')
-  		.then((res)=>{
-  			this.movieList = res.data.subjects;
-  		});
+  	this.loadData();
+    var _this = this;
+    $(window).scroll(function(){
+      var height = $(document).height();
+      var windowHeight = $(this).height();
+      var scrollTop = $(this).scrollTop();
+      if(windowHeight + scrollTop >= height){
+        _this.show = true;
+        _this.loadData();
+      }
+    });
+  },
+  methods:{
+    loadData(){
+      var length = this.movieList.length;
+      Axios.get(API_PROXY+'https://api.douban.com/v2/movie/coming_soon?count=10&start='+length)
+        .then((res)=>{
+          this.movieList = this.movieList.concat(res.data.subjects);
+          this.show = false;
+        });
+    }
   }
 }
 </script>
@@ -44,6 +66,7 @@ export default {
 	.movie-list{
 		margin: 0.4rem 0;
 		padding: 0.4rem;
+    /*overflow: hidden;*/
 	}
     .movie-list .movie-img{
     	width: 0.8rem;
@@ -59,5 +82,9 @@ export default {
 		width: 4rem;
 		margin-left: 0.6rem;
 		border-bottom: 1px solid #ccc;
+    }
+    .loading{
+      text-align: center;
+      clear: both;
     }
 </style>

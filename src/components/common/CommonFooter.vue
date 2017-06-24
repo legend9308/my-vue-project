@@ -1,10 +1,10 @@
 <template>
-	<div class="footer">
+	<div class="footer" :style="{background:$store.state.bgColor}">
 		<ul>
-			<li @click="changeTitle('movie')"><router-link to="/movie">电影</router-link></li>
-			<li @click="changeTitle('music')"><router-link to="/music">音乐</router-link></li>
-			<li @click="changeTitle('book')"><router-link to="/book">书籍</router-link></li>
-			<li @click="changeTitle('photo')"><router-link to="/photo">图片</router-link></li>
+			<li><router-link to="/movie">电影</router-link></li>
+			<li><router-link to="/music">音乐</router-link></li>
+			<li><router-link to="/book">书籍</router-link></li>
+			<li><router-link to="/photo">图片</router-link></li>
 		</ul>
 	</div>	
 </template>
@@ -18,9 +18,11 @@ export default {
     }
   },
   methods:{
-  	changeTitle(title){
-  		this.$store.dispatch('changeTitle',title)
-  	}
+  	// changeTitle(title,color){
+  	// 	this.$store.dispatch('changeTitle',[title,color]);
+  		// this.$store.dispatch('changeBgColor',color);
+
+  	// }
   }
 }
 </script>
@@ -30,7 +32,7 @@ export default {
 <style scoped>
 	.footer{
 			height: 1rem;
-			background: rgb(33,150,243);
+			/*background: rgb(33,150,243);*/
 			color: #fff;
 	}
 	.footer ul{

@@ -1,8 +1,6 @@
 <template>
   <div class="music">
-    <common-header></common-header>
-    <router-view></router-view>
-    <common-footer></common-footer>
+    
   </div>  
 </template>
 
@@ -15,10 +13,10 @@
   import Axios from 'axios'
 
 export default {
-  name: 'hello',
   data () {
     return {
-      albums:[]
+      albums:[],
+      albName:''
     }
   },
   components:{
@@ -26,15 +24,17 @@ export default {
     CommonFooter
   },
   mounted(){
-    this.$store.dispatch('changeTitle',['music','rgb(0,150,136)','<']);
-    Axios.get('../../../static/musiclist.json').then((res)=>{
-      this.albums = res.data.albums;
-    });
-  },
-  methods:{
-    change(albname){
-      this.$store.dispatch('changeTitle',[albname,'rgb(0,150,136)','<']);
-    }
+     // console.log(this.$route.params.id);
+     // Axios.get('../../../static/musiclist.json').then((res)=>{
+     //   this.albums = res.data.albums;
+     //   console.log(this.albums);
+     //   for(var i=0;i<this.albums.length;i++){
+     //    if(this.albums[i].id==this.$route.params.id){
+     //      this.albName = this.albums[i].name;
+     //    }
+     //   }
+     //   this.$store.dispatch('changeTitle',[this.albName,'rgb(0,150,136)','<']);
+     // });
   }
 }
 </script>

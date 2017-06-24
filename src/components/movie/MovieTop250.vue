@@ -9,7 +9,7 @@
             	<p><span v-for="genre in movie.genres">{{genre}}</span>({{movie.year}})(平均{{movie.rating.average}}分)</p>
             </div>
         </div>
-        <div class="loading" v-show="show">
+        <div class="loading" v-show="show"> <!-- v-show="show" --> 
         	<span><img src="../../assets/img/loading.gif"></span>
         </div>
     </div>  
@@ -59,6 +59,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	@import "../../assets/css/reset.css";
+
 	.top-250{
 		margin-top: 2rem;
 		margin-bottom: 1rem;
@@ -83,6 +85,7 @@ export default {
 		border-bottom: 1px solid #ccc;
     }
     .loading{
+      clear: both;
     	text-align: center;
     }
 </style>

@@ -8,6 +8,8 @@ import MovieComing from '@/components/movie/MovieComing'
 import Music from '@/components/music/Music'
 import Book from '@/components/book/Book'
 import Photo from '@/components/photo/Photo'
+import MusicList from '@/components/music/MusicList'
+import MusicAlbums from '@/components/music/MusicAlbums'
 
 Vue.use(Router)
 
@@ -31,8 +33,16 @@ export default new Router({
     	redirect:'/movie/top250'
     },
     {
+    	path:'/music',
+    	redirect:'/music/music-albums'
+    },
+    {
     	path: '/music',
     	component: Music,
+    	children:[
+    		{path:'/music/music-albums',component:MusicAlbums},
+    		{path:'/music/music-list/:id',component:MusicList}
+    	]
     },
     {
     	path: '/book',
